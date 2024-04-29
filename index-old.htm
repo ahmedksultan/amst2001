@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <title>AMST 2001 final project</title>
+
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/topojson.v2.min.js"></script>
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .flex-container {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                height: 100vh;
+                flex-wrap: nowrap;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="flex-container">
+            <div class="header">
+                <h1>AMST 2001 Final Project</h1>
+            </div>
+
+            <div class="mapColumn">
+                <!-- <div id="restaurant-hover" class="restaurant-hover" style="position:absolute"></div> -->
+                <svg id="svgMap" width="650" height="1100" top="30">
+                </svg>
+            </div>
+    
+            <div id="container">
+                <svg id="map" height="1000" width="1000" style="border: none;"></svg>
+            </div>
+        </div>
+    </body>
+
+    <script>
+        const requestData = async function() {
+            
+            // ---- MAP ----
+
+            const map_data = await d3.json("data/buildings-geojson.json");
+            const bldg_data = await d3.json("data/cugir-009086-geojson.json");
+                console.log(map_data);
+                console.log(bldg_data);
+
+            const map_svg = d3.select("#map");
+            const map_svg_W = map_svg.attr("width");
+            const map_svg_H = map_svg.attr("height");
+
+            const margin = { top: 5, bottom: 5, right: 5, left: 5 };
+
+            const mapWidth = map_svg_W - margin.left - margin.right;
+            const mapHeight = map_svg_H - margin.top - margin.bottom;
+
+            let map = map_svg.append("g")
+                .attr("transform", "translate("+margin.left+","+margin.top+")");
+            
+            let projection = d3.geoMercator()
+                .fitSize([mapWidth, mapHeight], bldg_data); 
+            let path = d3.geoPath().projection(projection);
+
+            map.selectAll("path.bldg").data(bldg_data.features)
+                .join("path")
+                .attr("class", "bldg")
+                .attr("id", d => d.properties.fid)
+                .attr("d", d => {
+                    // console.log(d.properties.fid);
+                    return path
+                })
+                .attr("stroke", "red")
+                .attr("stroke-width", 1)
+                .attr("fill", "none");
+
+            map.selectAll("circle.center").data(map_data.features)
+                .join("circle")
+                .attr("class", "center")
+                .attr("r", 3)
+                .attr("fill", "blue")
+                .attr("stroke", "none")
+                .attr("cx", d => projection(d.geometry.coordinates)[0])
+                .attr("cy", d => projection(d.geometry.coordinates)[1]);
+
+            map_data.features.forEach( )
+
+        }
+
+        requestData();
+    </script>
+</html>

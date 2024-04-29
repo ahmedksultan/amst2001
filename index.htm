@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/topojson.v2.min.js"></script>
+
+        <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
+
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .flex-container {
+                margin: 0;
+                padding: 0;
+                display: flex;
+                height: 100vh;
+                flex-wrap: nowrap;
+            }
+
+            .textSide {
+                padding: 1em 3em;
+            }
+
+            .marker {
+                border-radius: 50%;
+                width: 5px;
+                height: 5px;
+                background: blue;
+                border: none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="flex-container"">
+            <div id="map" style="width: 50%; height: 100%;"></div>
+    
+            <div class="textSide">
+                <div id="header">
+                    <h1>Cornell blah blah blah</h1>
+                    <p>I cant remember the last time i was happy</p>
+                </div>
+
+                <div id="viewer" style="color: red;">
+                    <h1 id="viewer-header"></h1>
+                    <p id="viewer-text"></p>
+                </div>
+            </div>
+        </div>
+       
+    </body>
+    
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWhtZWRrc3VsdGFuIiwiYSI6ImNsdmtkMjc2ejIyZXMybHFjeG9rOXQyejEifQ.kqhT6VgpTBhYoxjYnja2bw';
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/ahmedksultan/clvkdskmh03i301ph9ktkb4am'
+        });
+
+        const marker = new mapboxgl.Marker(options={"color": "red"})
+            .setLngLat([-76.487879, 42.444311])
+            .addTo(map);
+
+        let img = document.createElement('img');
+        img.src ='https://media.geeksforgeeks.org/wp-content/uploads/20190529122828/bs21.png';
+
+        let xyzC = document.createElement("div");
+        xyzC.className = "marker";
+
+        const point = new mapboxgl.Marker(xyzC)
+            .setLngLat([-76.484999, 42.440338])
+            .addTo(map);
+
+        marker.getElement().addEventListener('click', () => {
+            console.log("HELP!!!!!!");
+            
+            document.getElementById("viewer-header").innerHTML = "104west";
+            document.getElementById("viewer-text").innerHTML = "this is 104 west"
+        })
+
+        const requestData = async function() {
+
+            const map_data = await d3.json("data/buildings-geojson.json");
+
+            map_data.features.forEach( b => {
+                let tempxyC = document.createElement("div");
+                tempxyC.className = "marker";
+                tempxyC.id = b.properties.Name;
+                tempxyC.addEventListener('mouseover', () => {
+                    document.getElementById("viewer-header").innerHTML = tempxyC.id;
+                })
+
+                new mapboxgl.Marker(tempxyC)
+                    .setLngLat([b.geometry.coordinates[0], b.geometry.coordinates[1]])
+                    .addTo(map);
+
+                console.log("printed", b.properties.Name, b.geometry.coordinates);
+            });
+
+        }
+
+        requestData();
+
+    </script>
+</html>
