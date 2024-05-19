@@ -3,6 +3,10 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://d3js.org/topojson.v2.min.js"></script>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
         <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 
@@ -10,6 +14,17 @@
             body {
                 margin: 0;
                 padding: 0;
+                line-height: 1.15 !important;
+            }
+
+            #header h1 {
+                font-family: 'Libre Baskerville', 'serif';
+                font-size: 36px;
+            }
+
+            #header p {
+                font-family: 'Libre Baskerville', 'serif';
+                font-size: 12px;
             }
 
             .flex-container {
@@ -26,9 +41,10 @@
 
             .marker {
                 border-radius: 50%;
-                width: 5px;
-                height: 5px;
-                background: blue;
+                width: 10px;
+                height: 10px;
+                background: crimson;
+                outline: 1px solid white;
                 border: none;
             }
 
@@ -40,6 +56,16 @@
                 height: 40px;
                 width: 300px;   
                 padding-top: 1%;
+                
+            }
+
+            #hover-img {
+                position: absolute;
+                height: 150px;
+                bottom: 12%;
+                left: 25%;
+                width: auto;
+                
             }
 
             #tip-header, #tip-info {
@@ -48,6 +74,7 @@
                 font-size: 12px;
                 margin-left: 5%;
                 padding: 0;
+                
             }
         </style>
     </head>
@@ -57,13 +84,56 @@
         <div class="flex-container">
             <div id="map" style="width: 50%; height: 100%;"></div>
     
-            <div class="textSide">
+            <div class="textSide" style="width: 50%; height: 100%;">
                 <div id="header">
-                    <h1>Cornell Buildings</h1>
-                    <p>Content Information about Building</p>
+                    <br>
+                    <h1><b>Cornell Buildings</b></h1>
+                    <p>We've created an interactive website that displays
+                        all the buildings owned and operated by Cornell University, 
+                        with a focus on providing historical information for a smaller set of buildings that we found especially interesting or important. 
+                        
+                        <br><br>
+                        The website uses an API called Mapbox, which allows for mapping of location data to specific buildings with an interactive user interface. Although other websites (such as the facilities map of all Cornell buildings) provide a similar overlay of buildings, our focus on including historical data is new to our knowledge. 
+                        
+                        <br><br>
+                        We hope that the website will allow those interested to learn more about the history of Cornell's campus in a fun and interactive way! 
+                        </p>
+                </div>
+                <div id="viewer" class="viewer" style="display: none;">
+                    <div id="viewer-header">
+                    </div>
+                    <div id="viewer-content">
+                        <!-- image -->
+                        <div id="carouselControls" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                              <div class="carousel-item active">
+                                <img id="caro-img1" class="d-block w-100" src="">
+                              </div>
+                              <div class="carousel-item">
+                                <img id="caro-img2" class="d-block w-100" src="">
+                              </div>
+                              <div class="carousel-item">
+                                <img id="caro-img3" class="d-block w-100" src="">
+                              </div>
+                            </div>
+                            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
+                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                              <span class="sr-only">previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
+                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                              <span class="sr-only">next</span>
+                            </a>
+                        </div>
+
+                        <!-- text -->
+                        <div id="viewer-text">
+                    </div>
                 </div>
             </div>
         </div>
+
+        <img id="hover-img" style="pointer-events: none;"></img>
 
         <div class="hover-tip">
             <b><span id="tip-header"></p></b> <br>
@@ -94,37 +164,49 @@
             .addTo(map);
 
         marker.getElement().addEventListener('click', () => {
-            console.log("HELP!!!!!!");
+            // console.log("HELP!!!!!!");
+
+            document.getElementById("viewer").style.display = "contents";
             
             document.getElementById("viewer-header").innerHTML = "104west";
-            document.getElementById("viewer-text").innerHTML = "this is 104 west"
+            document.getElementById("viewer-text").innerHTML = "this is 104 west";
+
+            document.getElementById("caro-img1").src = "https://www.cabq.gov/artsculture/biopark/news/10-cool-facts-about-penguins/@@images/1a36b305-412d-405e-a38b-0947ce6709ba.jpeg";
         })
+
+
 
         const requestData = async function() {
 
             const map_data = await d3.json("data/buildings-geojson.json");
 
-            map_data.features.forEach( b => {
+            const building_data = await d3.csv("data/buildings.csv");
+
+            // console.log(building_data);
+
+            building_data.forEach( b => {
                 let tempxyC = document.createElement("div");
                 tempxyC.className = "marker";
-                tempxyC.id = b.properties.Name;
-                
+                tempxyC.id = b.name;
+
                 tempxyC.addEventListener('mouseover', () => {
                     document.getElementById("tip-header").innerHTML = tempxyC.id;
-                    document.getElementById("tip-info").innerHTML = "blah blah blah";
+                    document.getElementById("tip-info").innerHTML = "(" + b.year + ") " + b.architect;
+                    document.getElementById("hover-img").src = "https://" + b.image;
                 })
                 tempxyC.addEventListener('mouseout', () => {
                     document.getElementById("tip-header").innerHTML = "";
                     document.getElementById("tip-info").innerHTML = "";
+                    document.getElementById("hover-img").src = "";
                 })
-                
+
+                let x = JSON.parse("[" + b.point + "]")[0][0];
+                let y = JSON.parse("[" + b.point + "]")[0][1];
 
                 new mapboxgl.Marker(tempxyC)
-                    .setLngLat([b.geometry.coordinates[0], b.geometry.coordinates[1]])
+                    .setLngLat([x, y])
                     .addTo(map);
-
-                // console.log("printed", b.properties.Name, b.geometry.coordinates);
-            });
+            })
 
         }
 
