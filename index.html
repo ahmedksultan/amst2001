@@ -76,6 +76,19 @@
                 padding: 0;
                 
             }
+
+            #viewer-header, #viewer-content {
+                font-family: 'Libre Baskerville';
+            }
+
+            #viewer-content {
+                font-size: 12px;
+                line-height: 1.15;
+            }
+
+            .viewer {
+                text-align: center;
+            }
         </style>
     </head>
 
@@ -87,47 +100,30 @@
             <div class="textSide" style="width: 50%; height: 100%;">
                 <div id="header">
                     <br>
-                    <h1><b>Cornell Buildings</b></h1>
+                    <h1 style="padding-bottom: 0; margin-bottom: 0;"><b>Big Red Buildings</b></h1>
+                    <p><i>by Ahmed Sultan and Julius Enarsson Enestrom</i></p>
+
                     <p>We've created an interactive website that displays
                         all the buildings owned and operated by Cornell University, 
                         with a focus on providing historical information for a smaller set of buildings that we found especially interesting or important. 
                         
                         <br><br>
-                        The website uses an API called Mapbox, which allows for mapping of location data to specific buildings with an interactive user interface. Although other websites (such as the facilities map of all Cornell buildings) provide a similar overlay of buildings, our focus on including historical data is new to our knowledge. 
+                        The website uses an API called Mapbox, which allows for mapping of location data to specific buildings with an interactive user interface. Although other websites (such as the facilities map of all Cornell buildings) provide a similar overlay of buildings, our focus on including historical data is novel. Most of our images are sourced from the Wikimedia Commons and the University Library Archive.
                         
                         <br><br>
-                        We hope that the website will allow those interested to learn more about the history of Cornell's campus in a fun and interactive way! 
+                        We hope that the website will allow those interested to learn more about the history of Cornell's campus in a fun and interactive way! <i>Click on any of the map markers to get more information.</i>
                         </p>
                 </div>
+                <hr>
                 <div id="viewer" class="viewer" style="display: none;">
-                    <div id="viewer-header">
-                    </div>
+                    <h2 id="viewer-header"></h2>
                     <div id="viewer-content">
                         <!-- image -->
-                        <div id="carouselControls" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
-                              <div class="carousel-item active">
-                                <img id="caro-img1" class="d-block w-100" src="">
-                              </div>
-                              <div class="carousel-item">
-                                <img id="caro-img2" class="d-block w-100" src="">
-                              </div>
-                              <div class="carousel-item">
-                                <img id="caro-img3" class="d-block w-100" src="">
-                              </div>
-                            </div>
-                            <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
-                              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                              <span class="sr-only">previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselControls" role="button" data-slide="next">
-                              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                              <span class="sr-only">next</span>
-                            </a>
-                        </div>
+                        <img id="img1" src="" style="height: 200px; width: auto;">
+                        <img id="img2" src="" style="height: 200px; width: auto;">
 
                         <!-- text -->
-                        <div id="viewer-text">
+                        <p id="viewer-text"></p>
                     </div>
                 </div>
             </div>
@@ -149,6 +145,92 @@
             style: 'mapbox://styles/ahmedksultan/clvkdskmh03i301ph9ktkb4am'
         });
 
+        array_content = [
+            {
+                "coords": [-76.48199256, 42.4482754],
+                "title": "A. D. White House",
+                "img_1": "https://upload.wikimedia.org/wikipedia/commons/2/27/Cornell_AD_White_House_April09_stitched.jpg",
+                "img_2": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Andrew_Dickson_White_1885.jpg",
+                "content": "The Andrew Dickson White House was built in 1874 in the High Victorian Gothic style and was designed by the architects William Henry Miller '72 and Charles Babcock. Miller is widely viewed as Cornell's first student of architecture and Babcock was the first professor of Architecture at Cornell, as well as its first dean and director, as well as a Reverend in the Episcopal Church. The house was built as the residence of Andrew Dickson White, the first president of Cornell. It currently houses the Society for the Humanities at Cornell and hosts events such as lectures, seminars and luncheons, as well as classes. Office space is hosted on the upper floors of the building."
+            },
+            {
+                "coords": [-76.480123, 42.449223],
+                "title": "Bailey Hall",
+                "img_1": "https://upload.wikimedia.org/wikipedia/commons/3/31/Cornell_Bailey_Hall_March09.jpg",
+                "img_2": "https://upload.wikimedia.org/wikipedia/commons/c/ca/Portrait_of_Liberty_Hyde_Bailey.jpg",
+                "content": "Bailey Hall was built in 1912 in the Greek Revival style and was designed by Edward Brodhead Green '78, who was based in Buffalo, NY. Bailey hall is an auditorium building and is the largest auditorium on campus. Significant changes were made to the building during a refurbishment and renovation process finished in 2006. Although seating capacity decreased from 1,948 to 1,324 following the renovation, several features of the building were significantly improved. For example, softer and more accommodating seating was introduced, contrasting sharply with the hard wooden seats that were previously installed. A handicapped-accessible elevator also improved the building from an accessibility perspective. The building is a state building, with both the university and New York State contributing to the renovation, which were designed by Mitchell/Giurgola Architects."
+            },
+            {
+                "coords": [-76.484324, 42.446429],
+                "title": "Barnes Hall",
+                "img_1": "https://upload.wikimedia.org/wikipedia/commons/5/59/Barnes_Hall%2C_Cornell_University%2C_Ithaca%2C_NY.jpg",
+                "img_2": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Barnes_Hall%2C_Cornell_University_%28NBY_22915%29.jpg",
+                "content": "Barnes Hall was built in 1887 in the Romanesque style and was designed by William Henry Miller '72. Miller is widely considered to be Cornell's first student of architecture. It was originally designed to house the Student Christian Association, which, under the leadership of John Mott '88, started pursuing the project of building a headquarters. It also served as the University's first student union. Alfred S. Barnes, a Cornell University trustee and publisher, funded the construction of the building. The construction of the building was associated with a string of deaths. Barnes, the superintending architect, the senior contracter, the stone carver and the gas fixture contractor all died following the approval process and during construction. The building currently houses several student-services offices."
+            },
+            {
+                "coords": [-76.480718, 42.445954],
+                "title": "Barton Hall",
+                "img_1": "https://dxbhsrqyrr690.cloudfront.net/sidearm.nextgen.sites/cornellbigred.com/images/2015/8/17/_Barton%20Hall%202.jpg",
+                "img_2": "https://c4.staticflickr.com/4/3171/2934916357_a2577c9dc0_z.jpg?zz=1",
+                "content": "Barton Hall was built in 1915 as a drill hall in the Gothic Revival style and was designed by Lewis Pilcher. Pilcher was the official State Architect of New York, a department which was started in 1909 and which continues to this day. Pilcher also designed several other armories, such as the Troop C Armory in Brooklyn. The building's state affiliations come from Cornell's requirement to offer military instruction as a state land-grant university. The original 'drill-shed' accommodated 1,000 people with an area of 362x228 feet. Barton Hall is named after Colonel Frank A. Barton '91, one of the first students to be the recipient of an army commission from Cornell's Military Science Program. Today, it houses the Cornell Police, an Indoor Track and ROTC offices."
+            },
+            {
+                "coords": [-76.475775, 42.447931],
+                "title": "Bradfield Hall",
+                "img_1": "https://upload.wikimedia.org/wikipedia/commons/6/66/Bradfield_Hall_02.jpg",
+                "img_2": "https://sequoia-forum-media.s3.amazonaws.com/prod.cirrostratus.org/2018/04/13/12/7e703f9a-a03b-4bf5-986c-978d7fe603d7_size3.jpg?response-content-type=image%2Fjpeg&AWSAccessKeyId=ASIAYU7NIXDBZYIKDNXZ&Expires=1716172928&x-amz-security-token=IQoJb3JpZ2luX2VjEKr%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJGMEQCIGNuUh8W7myCEvKMU60aMQsY7H4KQC4oQSAp4bkVXr8DAiAlBQvizdwL4GpawklQ7GDgm8%2FBPJIBz28m9OixGcKUzCqFBQgjEAAaDDU5NDgxMzY5NjE5NSIM8klcyU03dKB239hnKuIEU1rEw4sICvRkhkEnRsMkXeSUQyq%2FPzPCAzPcKB6hK9mM8euohf%2BdXQ5LR0Gauulc7Ru9%2B4VQEZ96r9sm9bAoUoOTS9rdQJytmEWRSpoOFRKQWO3l9kXWTEATFR5YBw6Vj5qvn3WNfmyn7psZV5IqzJeBZDDK1E31GdAk%2F6NiwLC6doeSbPwh5STo5DNvQ8eBpuNUE%2Bhfa4T5vnBfYJtbVy%2FYPJEvHX8mL6JIjyD%2B81XlP5QtEpNLACMYFqtGgBtEptyW%2F%2BtERSrAR1WT93%2FAc6SMjtBU2c2I362IcjSeKhAaPyNGpW7KA7lUowJ%2B%2BnfcPKtpzvfyURrJeCUYgZDmUkeqVzwcquVuVJwZdVeZLjMuyvwzL3DMa4KxqiJFK95tEgJH6xfnqf3rHgbWCV%2Bsnzd5RNU12JKiHkMzSCvoNEFVhdyjGH2MqRVsSFtUk7walKKld82ciWEfy3nkrkBQ%2F7Lva5OspeBMpUwRu0xfzae%2B34jRurLcezTfOE%2Bj3XA3C%2BU9G6Ov1jioXfiegi8GfUOw7GYey%2BXyrRkv9oNjHumjMr16GPXsVg0WmgtCdZxXwW2wwZ7HRcQ5biNsiAqGyikYJHDQpIq0w4EshAtx7eIZ6Z4wfbvspRJOT2AsiNXQVEhf67nEWZyzqsD6w%2FWC0ETAx9O%2BywsGkFsoSxCv4e0JkAo2kPrdfRB%2FE2VmRGxMnfxz9M1Coy2r0h83sfjIjeaUziJo2oC9bSVKqX5cvrE9sECe4b3YaUk%2Fm4jzlhO%2FxkW5orxLfmgkCIMoS9va6%2Bm2s64p%2Fhd4FdWa6gIJ5Wu8PjD8y6qyBjqbAfboiOZQG3FSt6tj%2FLUMX3JqRSVWwkAV4YsY7luqfjn4CDwSmpp0sx7%2FSF%2B3L0cdiD7BRPpzFMSBjnNBdc%2FGqSTFP0pwpyPNCKBX6SuDzcPOceDjzTtYcKcn%2FVy9EFhU%2FmgrcI12eQxaTUZvW5iQF0zZr19vnhwPy%2Bq8TGCuG%2BgEmVUN9Jn6gyLl2NW3vQmCeFKVNIgHvxYPGSUC&Signature=60USQfl4hh0yYKcggTEf4wPLyi8%3D",
+                "content": "Bradfield Hall was built in 1969 in the brutalist style and designed by Ulrich Franzen. The building houses Earth and Atmospheric Sciences, Crop and Soil Science, Plant Breeding and Genetics research and teaching facilities. The 11th floor of the building houses one of six regional climate centers belonging to the National Oceanic and Atmospheric Administration. The first ten floors of the building do not have windows. It was named after Professor Emeritus Richard Bradfield, who was head of the Cornell Agronomy Department from 1937 to 1955. Bradfield Hall currently holds the distinction of being the tallest building on campus."
+            },
+            {
+                "coords": [-76.477446, 42.445708],
+                "title": "Lynah Rink",
+                "img_1": "",
+                "img_2": "https://i0.wp.com/ithacavoice.s3.amazonaws.com/ithacavoice/wp-content/uploads/2015/12/Lynah-Rink-610x350.jpg",
+                "content": "The James Lynah Rink, usually referred to as just Lynah Rink, was built in 1957 and designed by Von Storch, Evans & Burkavage The rink is named in honor of James Lynah '05, who directed Cornell Athletics from 1935 to 1943. Although Cornell's sponsorship of a hockey team began in 1900, all home games were played on Beebe Lake. A series of warmer winters caused this to be unfeasible, so the program was put on hold and restarted when Lynah Rink opened. The inaugural game at the rink was between the NY Rangers and the Rochester Americans on March 21, 1957. A renovation of the building occurred in 2000 and an extension was built in 2006. Lynah Rink has a capacity of 4,267 people and is well known for the 'Lynah Faithful', the Cornell fans who ardently support their team (which is everyone at the University) -- often in flamboyant fashion!"
+            },
+            {
+                "coords": [-76.485315, 42.448637],
+                "title": "Morrill Hall",
+                "img_1": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Cornell_Morrill_Hall_eastern_face.jpg",
+                "img_2": "https://news.cornell.edu/sites/default/files/styles/full_size/public/2018-10/Morrill_Hall_1868.jpg",
+                "content": "Justin Morrill Hall, more commonly referred to as Morrill Hall, was built in 1868 in the Second Empire and/or Italian Renaissance style(s) and was designed by Henry W. Wilcox and Cyrus K. Porter, both from Buffalo. It was Cornell's first newly constructed building and was named after Senator Justin Morrill of Vermont, the senator behind the Land Grant Act of 1862, which gave significant resources to the University in its early years (with significant controversy, as these lands came largely from territories of American Indigenous peoples). The National Park Service description of the building says that the building 'looks as if it will endure for all time', a sentiment we wholeheartedly agree with! The building currently houses the Departments of Romance Studies, Russian Literature, and Linguistics. Morrill Hall was initially named South University Building and was intended to face the slope west of the Arts Quad (what is now known as Libe Slope or Library Slope). This is also true of the other two buildings, White and McGraw Halls, which together form the historic 'Old Stone Row'. The gray stone used in the buildings was quarried locally."
+            },
+            {
+                "coords": [-76.484459, 42.447201],
+                "title": "Sage Chapel",
+                "img_1": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/sage-chapel-ceiling-1-cornell-university-stephen-stookey.jpg",
+                "img_2": "https://upload.wikimedia.org/wikipedia/commons/4/49/Cornell_Sage_Chapel_2.jpg",
+                "content": "Sage Chapel was built in 1874 and designed by Charles Babcock. Babcock, who was a Reverend in the Episcopal church, was the first professor of Architecture at Cornell, as well as its first dean and director. It is named after Henry W. Sage, a Cornell trustee and benefactor. The building has gone through several design iterations, expansions and alterations. In 1883, the Memorial Antechapel was added in the northwest corner of the building in memory of Ezra Cornell, John McGraw, and Jennie McGraw Fiske. Several additional expansions occurred: in 1898 with the Sage Memorial Apse for the bodies of Henry W. Sage and Susan Linn Sage and in 1904 with the north transept to house the organ and choir. The Chapel also features significant Christian and educational design motifs, on the walls, windows and roofs."
+            },
+            {
+                "coords": [-76.48607233, 42.45072827],
+                "title": "Herbert F. Johnson Museum of Art",
+                "img_1": "https://museum.cornell.edu/wp-content/uploads/2023/02/Appel-940x590px.jpg",
+                "img_2": "https://upload.wikimedia.org/wikipedia/commons/2/2b/Johnson-museum-of-art-cornell.JPG",
+                "content": "The Herbert F. Johnson Museum of Art was built in 1973 and was designed by Ieoh Ming Pei, also known as I.M. Pei. I.M. Pei also designed a number of well-known buildings, such as the Grand Louvre renovation project of the Louvre art museum in Paris. The Museum is named after its benefactor Herbert Fisk Johnson '22, who was a Cornell trustee and president and chairman of S. C. Johnson. The University's art collections were previously housed in the Andrew Dickson White House, following a renovation. The building currently houses around 40,000 works of art in its permanent collection, which span a period of six millenia and with broad cultural and geographic representation. An extension and renovation of the building was also completed in 2011, lead by architect John L. Sullivan III '62."
+            },
+            
+            
+        ]
+
+        array_content.forEach( a => {
+            let marker = new mapboxgl.Marker(options={"color": "red"})
+                .setLngLat(a.coords)
+                .addTo(map);
+            
+            marker.getElement().addEventListener('click', () => {
+                document.getElementById("viewer").style.display = "contents";
+
+                document.getElementById("img1").src = a.img_1;
+                document.getElementById("img2").src = a.img_2;
+
+                document.getElementById("viewer-header").innerHTML = a.title;
+                document.getElementById("viewer-text").innerHTML = a.content;
+            })
+        });
+
+        /*
+        
         const marker = new mapboxgl.Marker(options={"color": "red"})
             .setLngLat([-76.487879, 42.444311])
             .addTo(map);
@@ -171,8 +253,9 @@
             document.getElementById("viewer-header").innerHTML = "104west";
             document.getElementById("viewer-text").innerHTML = "this is 104 west";
 
-            document.getElementById("caro-img1").src = "https://www.cabq.gov/artsculture/biopark/news/10-cool-facts-about-penguins/@@images/1a36b305-412d-405e-a38b-0947ce6709ba.jpeg";
         })
+
+        */
 
 
 
