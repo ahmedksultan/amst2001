@@ -275,11 +275,13 @@
                     document.getElementById("tip-header").innerHTML = tempxyC.id;
                     document.getElementById("tip-info").innerHTML = "(" + b.year + ") " + b.architect;
                     document.getElementById("hover-img").src = "https://" + b.image;
+                    display = contents;
                 })
                 tempxyC.addEventListener('mouseout', () => {
                     document.getElementById("tip-header").innerHTML = "";
                     document.getElementById("tip-info").innerHTML = "";
                     document.getElementById("hover-img").src = "";
+                    display = none;
                 })
 
                 let x = JSON.parse("[" + b.point + "]")[0][0];
