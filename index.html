@@ -277,9 +277,9 @@
                     document.getElementById("hover-img").src = "https://" + b.image;
                 })
                 tempxyC.addEventListener('mouseout', () => {
-                    document.getElementById("tip-header").innerHTML = "";
-                    document.getElementById("tip-info").innerHTML = "";
-                    document.getElementById("hover-img").src = "";
+                    document.getElementById("tip-header").innerHTML = "".style.visibility = "hidden";;
+                    document.getElementById("tip-info").innerHTML = "".style.visibility = "hidden";;
+                    document.getElementById("hover-img").src = "".style.visibility = "hidden";;
                 })
 
                 let x = JSON.parse("[" + b.point + "]")[0][0];
